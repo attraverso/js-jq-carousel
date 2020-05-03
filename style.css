@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.images-box img {
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
+  text-align: center;
+  display: none;
+}
+
+.images-box img.current-img {
+  display: block;
+}
+
+.next-box i:hover,
+.prev-box i:hover {
+  color: #666;
+  cursor: pointer;
+}
+
+.slider-box {
+  margin-top: 100px;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-box i {
+  font-size: 26px;
+  padding: 0 10px;
+}
