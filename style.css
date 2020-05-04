@@ -9,7 +9,7 @@
   margin: auto;
 }
 
-.images-box img {
+img {
   width: 600px;
   height: 400px;
   object-fit: cover;
@@ -17,8 +17,27 @@
   display: none;
 }
 
-.images-box img.current-img {
+.bullets-box {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bullets-box i {
+  font-size: 20px;
+  padding: 0 5px;
+  color: #fff;
+}
+
+.current {
   display: block;
+}
+
+.next-box i,
+.prev-box i {
+  font-size: 26px;
+  padding: 0 10px;
 }
 
 .next-box i:hover,
@@ -32,9 +51,5 @@
   display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.slider-box i {
-  font-size: 26px;
-  padding: 0 10px;
+  position: relative;
 }
