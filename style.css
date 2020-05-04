@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-.container {
-  width: 80%;
-  margin: auto;
-}
-
 img {
   width: 600px;
   height: 400px;
@@ -17,21 +12,31 @@ img {
   display: none;
 }
 
-.bullets-box {
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.buttons-box {
+  width: 80px;
+  margin: auto;
+}
+
+.current {
+  display: block;
+}
+
+.dots-box {
   position: absolute;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.bullets-box i {
+.dots-box i {
   font-size: 20px;
   padding: 0 5px;
   color: #fff;
-}
-
-.current {
-  display: block;
 }
 
 .next-box i,
