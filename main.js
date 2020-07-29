@@ -1,90 +1,88 @@
-//creo una variabile con cu iidentificare l'immagine corrente attraverso la classe current-img
-var sliding;
-//intercetto il clic per la partenza dello slider automatico
+/*AUTOMATIC ROTATION*/
+
+var clock = setInterval(getNextItem, 3000);
+
 $('button:first-child').click(function() {
-  sliding = setInterval(slider, 3000);
-});
+  clock = setInterval(getNextItem, 3000);
+})
 
-//intercetto il clic per lo stop dello slider automatico
 $('button:last-child').click(function() {
-  clearInterval(sliding);
+  clearInterval(clock);
 });
 
-//slider automatico
-function slider() {
-//stabilisco quali siano l'immagine/punto correnti
-var currentImg = $('img.current');
-var currentDot = $('.bullets-box i.current')
+/*PICK IMAGE VIA DOT*/
+//recupero l'indice del pallino selezionato
+$('.dots-box i').click(function() {
+  //mi salvo la posizione in una var
+  var currentDot = $(this);
+  var dotIndex = currentDot.index();
 
-//rimuovo la classe che li identifica come attivi
-currentImg.removeClass('current');
-currentDot.removeClass('fas current');
-currentDot.addClass('far');
+  //tolgo da tutti i pallini le classi che li rendono correnti, idem x le img
+  $('.dots-box i').removeClass('fas').addClass('far');
+  $('img').removeClass('current');
 
-//stabilisco quali siano l'immagine/punto successivi
-var nextImg = currentImg.next();
-var nextDot = currentDot.next();
+  //cambio classi per metterlo corrente
+  currentDot.removeClass('far').addClass('fas');
 
-//scalo di uno e aggiungo la classe
-if(nextImg.length != 0) {
-  nextImg.addClass('current');
-  nextDot.removeClass('far');
-  nextDot.addClass('fas current');
+  //recupero l'immagine corrispondente
+  var currentImg = $('img').eq(dotIndex);
+
+  //cambio classi per metterla corrente
+  currentImg.addClass('current');
+})
+
+
+/*MANUAL LINEAR FLOW*/
+$('.next-box').click(getNextItem);
+$('.prev-box').click(getPreviousItem)
+
+
+/*FUNCTIONS*/
+
+function getNextItem() {
+  //recupero l'immagine attuale
+  var currentImg = $('img.current');
+  var currentDot = $('.dots-box .fas');
+
+  //tolgo la classe current
+  currentImg.removeClass('current');
+  currentDot.removeClass('fas').addClass('far');
+
+  //recupero l'immagine successiva
+  var nextImg = currentImg.next('img');
+  var nextDot = currentDot.next('i');
+
+  if (nextImg.length != 0) {
+    //se c'è un'immagine successiva -> metto classe current
+    nextImg.addClass('current');
+    nextDot.removeClass('far').addClass('fas');
   } else {
-    //se ho finito le immagini, riparto dalla prima e dal primo punto
-  nextImg = $('img:first-child');
-  nextImg.addClass('current');
-  nextDot = $('.bullets-box i:first-child');
-  nextDot.removeClass('far')
-  nextDot.addClass('fas current');
+    //se non c'è un'immagine dopo -> metto classe current alla prima immagine
+    $('img:first-child').addClass('current');
+    $('.dots-box i:first-child').removeClass('far').addClass('fas');
   }
 };
 
-// /*MANUAL CONTROL VIA CHEVRONS*/
-// $('.next-box').click(function() {
-// var currentImg = $('img.current');
-// var currentDot = $('.bullets-box i.current')
-// //rimuovo la classe
-// currentImg.removeClass('current');
-// currentDot.removeClass('fas current');
-// currentDot.addClass('far');
-// var nextImg = currentImg.next();
-// var nextDot = currentDot.next();
-//
-// //scalo di uno e aggiungo la classe
-// if(nextImg.length != 0) {
-// nextImg.addClass('current');
-// nextDot.removeClass('far');
-// nextDot.addClass('fas current');
-// } else {
-// nextImg = $('img:first-child');
-// nextImg.addClass('current');
-// nextDot = $('.bullets-box i:first-child');
-// nextDot.removeClass('far')
-// nextDot.addClass('fas current');
-// }
-// };
-//
-// $('.prev-box').click(function() {
-//   var currentImg = $('img.current');
-//   var currentDot = $('.bullets-box i.current')
-//   //rimuovo la classe
-//   currentImg.removeClass('current');
-//   currentDot.removeClass('fas current');
-//   currentDot.addClass('far');
-//   var previousImg = currentImg.prev();
-//   var previousDot = currentDot.prev();
-//
-//   //scalo di uno e aggiungo la classe
-//   if(previousImg.length != 0) {
-//   previousImg.addClass('current');
-//   previousDot.removeClass('far');
-//   previousDot.addClass('fas current');
-//   } else {
-//   previousImg = $('img:last-child');
-//   previousImg.addClass('current');
-//   previousDot = $('.bullets-box i:last-child');
-//   previousDot.removeClass('far')
-//   previousDot.addClass('fas current');
-// }
-// })
+function getPreviousItem() {
+  //recupero l'immagine attuale
+  var currentImg = $('img.current');
+  var currentDot = $('.dots-box .fas');
+
+  //tolgo la classe current
+  currentImg.removeClass('current');
+  currentDot.removeClass('fas').addClass('far');
+
+  //recupero l'immagine successiva
+  var previousImg = currentImg.prev('img');
+  var previousDot = currentDot.prev('i');
+
+  if (previousImg.length != 0) {
+    //se c'è un'immagine successiva -> metto classe current
+    previousImg.addClass('current');
+    previousDot.removeClass('far').addClass('fas');
+  } else {
+    //se non c'è un'immagine dopo -> metto classe current alla prima immagine
+    $('img:last-child').addClass('current');
+    $('.dots-box i:last-child').removeClass('far').addClass('fas');
+  }
+};
